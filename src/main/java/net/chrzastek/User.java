@@ -2,6 +2,7 @@ package net.chrzastek;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@NoArgsConstructor
 @ToString
 public class User {
 
