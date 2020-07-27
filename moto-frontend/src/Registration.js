@@ -6,6 +6,11 @@ import Button from 'react-bootstrap/Button'
 
 class Registration extends Component {
 
+  constructor(props) {
+    super(props);
+    this.registrationAler = React.createRef();
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     this.registerUser(event.target.username.value, event.target.password.value)
