@@ -68,9 +68,9 @@ class Registration extends Component {
                     </Form>
                 </div>
 
-                <RegistrationAlert ref={this.RegistrationAlert}/>
+                <RegistrationAlert ref={this.registrationAlert}/>
             </>
-        )
+        );
     }
 }
 
