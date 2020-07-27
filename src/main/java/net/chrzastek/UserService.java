@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserService {
@@ -29,9 +30,9 @@ public class UserService {
 
   @PostMapping("/users")
   public ResponseEntity addUser(@RequestBody User user) {
-    List<User> userFromDb = userRepository.findByUsername(user.getUsername());
+    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
-    if (!userFromDb.isEmpty()) {
+    if (!userFromDb.isPresent()) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
 
