@@ -1,9 +1,9 @@
 package net.chrzastek;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cars")
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -27,16 +27,16 @@ public class Car {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @NotNull
+  @NonNull
   @ManyToOne
   private User user;
 
-  @NotNull
+  @NonNull
   private String brandName;
 
-  @NotNull
+  @NonNull
   private String modelName;
 
-  @NotNull
+  @NonNull
   private int manufactureYear;
 }
