@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 import './registration.css';
 
-import RegistrationAlert from './RegistrationAlert.js';
+import RegistrationAlert from './registrationAlert.js';
 
 class Registration extends Component {
 
@@ -53,6 +53,7 @@ class Registration extends Component {
         return (
             <>
                 <div className="Register">
+                    <h1 className="RegisterHeader">Register</h1>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="username" size="lg">
                             <Form.Label>Username</Form.Label>
