@@ -42,4 +42,21 @@ public class UserService {
     User savedUser = userRepository.save(user);
     return ResponseEntity.ok(savedUser);
   }
+
+  @CrossOrigin(origins = "http://localhost:3000")
+  @PostMapping("/login")
+  public ResponseEntity login(@RequestBody User user) {
+    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
+
+    if(userFromDb.isEmpty() || hasWrongPassword(userFromDb, user)) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+    return ResponseEntity.ok().build();
+
+  }
+
+  private boolean hasWrongPassword(Optional<User> userFromDb, User user) {
+    return !userFromDb.get().getPassword().equals(user.getPassword());
+  }
+
 }
