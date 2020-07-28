@@ -33,11 +33,12 @@ public class Car {
   private User user;
 
   @NonNull
-  private String brandName;
+  private String brandname;
 
   @NonNull
-  private String modelName;
+  private String modelname;
 
   @NonNull
-  private int manufactureYear;
+  private int manufactureyear;
+
 }
