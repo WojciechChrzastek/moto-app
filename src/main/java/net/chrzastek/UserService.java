@@ -23,14 +23,12 @@ public class UserService {
   @Autowired
   ObjectMapper objectMapper;
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/users")
   public ResponseEntity getUsers() throws JsonProcessingException {
     List<User> users = userRepository.findAll();
     return ResponseEntity.ok(objectMapper.writeValueAsString(users));
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/users")
   public ResponseEntity addUser(@RequestBody User user) {
     Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
@@ -43,7 +41,6 @@ public class UserService {
     return ResponseEntity.ok(savedUser);
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/login")
   public ResponseEntity login(@RequestBody User user) {
     Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
