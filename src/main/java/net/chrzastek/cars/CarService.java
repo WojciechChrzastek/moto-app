@@ -1,5 +1,7 @@
-package net.chrzastek;
+package net.chrzastek.cars;
 
+import net.chrzastek.users.User;
+import net.chrzastek.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
