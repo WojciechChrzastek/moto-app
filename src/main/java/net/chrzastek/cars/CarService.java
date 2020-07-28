@@ -1,5 +1,6 @@
 package net.chrzastek.cars;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.chrzastek.users.User;
 import net.chrzastek.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,18 @@ public class CarService {
   @PostMapping("/cars")
   public ResponseEntity addCar(
           @RequestHeader("username") String username,
-          @RequestBody String brandName,
-          @RequestBody String modelName,
-          @RequestBody int manufactureYear) {
+          @RequestBody ObjectNode objectNode) {
   Optional<User> userFromDb = userRepository.findByUsername(username);
 
   if (userFromDb.isEmpty()) {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
   }
 
-  Car car = new Car(userFromDb.get(), brandName, modelName, manufactureYear);
+  Car car = new Car(
+          userFromDb.get(),
+          objectNode.get("brandname").asText(),
+          objectNode.get("modelname").asText(),
+          objectNode.get("manufactureyear").asInt());
   Car savedCar = carRepository.save(car);
 
   return ResponseEntity.ok(savedCar);
