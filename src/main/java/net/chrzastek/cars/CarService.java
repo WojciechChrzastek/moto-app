@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -33,6 +34,15 @@ public class CarService {
   public ResponseEntity getCars() throws JsonProcessingException {
     List<Car> cars = carRepository.findAll();
     return ResponseEntity.ok(objectMapper.writeValueAsString(cars));
+  }
+
+  @GetMapping("/cars/{id}")
+  public ResponseEntity getCarById(@PathVariable long id) {
+    Optional<Car> car = carRepository.findById(id);;
+    if (car.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+    return ResponseEntity.ok(car);
   }
 
   @PostMapping("/cars")
