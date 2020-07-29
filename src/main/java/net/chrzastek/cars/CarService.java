@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,30 +39,52 @@ public class CarService {
 
   @GetMapping("/cars/{id}")
   public ResponseEntity getCarById(@PathVariable long id) {
-    Optional<Car> car = carRepository.findById(id);;
+    Optional<Car> car = carRepository.findById(id);
+
     if (car.isEmpty()) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     return ResponseEntity.ok(car);
   }
 
+  @PutMapping("/cars/{id}")
+  public ResponseEntity updateCarById(
+          @RequestHeader("username") String username,
+          @RequestBody ObjectNode objectNode,
+          @PathVariable long id) {
+    Optional<Car> car = carRepository.findById(id);
+
+    if (car.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+
+    Car c = carRepository.getOne(id);
+
+    c.setBrandname(objectNode.get("brandname").asText());
+    c.setModelname(objectNode.get("modelname").asText());
+    c.setManufactureyear(objectNode.get("manufactureyear").asInt());
+
+    carRepository.save(c);
+    return ResponseEntity.ok(c);
+  }
+
   @PostMapping("/cars")
   public ResponseEntity addCar(
           @RequestHeader("username") String username,
           @RequestBody ObjectNode objectNode) {
-  Optional<User> userFromDb = userRepository.findByUsername(username);
+    Optional<User> userFromDb = userRepository.findByUsername(username);
 
-  if (userFromDb.isEmpty()) {
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-  }
+    if (userFromDb.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
 
-  Car car = new Car(
-          userFromDb.get(),
-          objectNode.get("brandname").asText(),
-          objectNode.get("modelname").asText(),
-          objectNode.get("manufactureyear").asInt());
-  Car savedCar = carRepository.save(car);
+    Car car = new Car(
+            userFromDb.get(),
+            objectNode.get("brandname").asText(),
+            objectNode.get("modelname").asText(),
+            objectNode.get("manufactureyear").asInt());
+    Car savedCar = carRepository.save(car);
 
-  return ResponseEntity.ok(savedCar);
+    return ResponseEntity.ok(savedCar);
   }
 }
