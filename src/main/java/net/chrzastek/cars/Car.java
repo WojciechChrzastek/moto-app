@@ -28,7 +28,7 @@ public class Car {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private long id;
 
   @NonNull
   @ManyToOne
