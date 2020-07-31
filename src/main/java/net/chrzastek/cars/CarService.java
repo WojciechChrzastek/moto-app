@@ -32,6 +32,26 @@ public class CarService {
   @Autowired
   ObjectMapper objectMapper;
 
+  @PostMapping("/cars")
+  public ResponseEntity addCar(
+          @RequestHeader("username") String username,
+          @RequestBody ObjectNode objectNode) {
+    Optional<User> userFromDb = userRepository.findByUsername(username);
+
+    if (userFromDb.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    Car car = new Car(
+            userFromDb.get(),
+            objectNode.get("brandname").asText(),
+            objectNode.get("modelname").asText(),
+            objectNode.get("manufactureyear").asInt());
+    Car savedCar = carRepository.save(car);
+
+    return ResponseEntity.ok(savedCar);
+  }
+
   @GetMapping("/cars")
   public ResponseEntity getCars() throws JsonProcessingException {
     List<Car> cars = carRepository.findAll();
@@ -69,29 +89,8 @@ public class CarService {
     return ResponseEntity.ok(c);
   }
 
-  @PostMapping("/cars")
-  public ResponseEntity addCar(
-          @RequestHeader("username") String username,
-          @RequestBody ObjectNode objectNode) {
-    Optional<User> userFromDb = userRepository.findByUsername(username);
-
-    if (userFromDb.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
-    Car car = new Car(
-            userFromDb.get(),
-            objectNode.get("brandname").asText(),
-            objectNode.get("modelname").asText(),
-            objectNode.get("manufactureyear").asInt());
-    Car savedCar = carRepository.save(car);
-
-    return ResponseEntity.ok(savedCar);
-  }
-
   @DeleteMapping("/cars/{id}")
-  public ResponseEntity deleteCarById(
-          @PathVariable long id) {
+  public ResponseEntity deleteCarById(@PathVariable long id) {
 
     Optional<Car> car = carRepository.findById(id);
 
