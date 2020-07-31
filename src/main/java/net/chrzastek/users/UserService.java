@@ -7,6 +7,7 @@ import net.chrzastek.cars.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,6 +74,21 @@ public class UserService {
     u.setEmail(objectNode.get("email").asText());
 
     userRepository.save(u);
+    return ResponseEntity.ok(u);
+  }
+
+  @DeleteMapping("/users/{id}")
+  public ResponseEntity deleteUserById(@PathVariable long id) {
+
+    Optional<User> user = userRepository.findById(id);
+
+    if (user.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+
+    User u = userRepository.getOne(id);
+
+    userRepository.delete(u);
     return ResponseEntity.ok(u);
   }
 
