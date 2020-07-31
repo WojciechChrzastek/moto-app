@@ -3,7 +3,6 @@ package net.chrzastek.users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import net.chrzastek.cars.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +27,18 @@ public class UserService {
   @Autowired
   ObjectMapper objectMapper;
 
+  @PostMapping("/users")
+  public ResponseEntity addUser(@RequestBody User user) {
+    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
+
+    if (userFromDb.isPresent()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+
+    User savedUser = userRepository.save(user);
+    return ResponseEntity.ok(savedUser);
+  }
+
   @GetMapping("/users")
   public ResponseEntity getUsers() throws JsonProcessingException {
     List<User> users = userRepository.findAll();
@@ -42,18 +53,6 @@ public class UserService {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     return ResponseEntity.ok(user);
-  }
-
-  @PostMapping("/users")
-  public ResponseEntity addUser(@RequestBody User user) {
-    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
-
-    if (userFromDb.isPresent()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-    }
-
-    User savedUser = userRepository.save(user);
-    return ResponseEntity.ok(savedUser);
   }
 
   @PutMapping("/users/{id}")
@@ -96,7 +95,7 @@ public class UserService {
   public ResponseEntity login(@RequestBody User user) {
     Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
 
-    if(userFromDb.isEmpty() || hasWrongPassword(userFromDb, user)) {
+    if (userFromDb.isEmpty() || hasWrongPassword(userFromDb, user)) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
     return ResponseEntity.ok().build();
