@@ -2,10 +2,12 @@ package net.chrzastek.users;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.chrzastek.cars.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +30,16 @@ public class UserService {
     return ResponseEntity.ok(objectMapper.writeValueAsString(users));
   }
 
+  @GetMapping("/users/{id}")
+  public ResponseEntity getUserById(@PathVariable long id) {
+    Optional<User> user = userRepository.findById(id);
+
+    if (user.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+    return ResponseEntity.ok(user);
+  }
+
   @PostMapping("/users")
   public ResponseEntity addUser(@RequestBody User user) {
     Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
@@ -39,6 +51,8 @@ public class UserService {
     User savedUser = userRepository.save(user);
     return ResponseEntity.ok(savedUser);
   }
+
+
 
   @PostMapping("/login")
   public ResponseEntity login(@RequestBody User user) {
