@@ -55,6 +55,26 @@ public class UserService {
     return ResponseEntity.ok(user);
   }
 
+  @GetMapping("/users/name")
+  public ResponseEntity getUserByUsername(@RequestBody ObjectNode objectNode) {
+    Optional<User> user = userRepository.findByUsername(objectNode.get("username").asText());
+
+    if (user.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+    return ResponseEntity.ok(user);
+  }
+
+  @GetMapping("/users/email")
+  public ResponseEntity getUserByEmail(@RequestBody ObjectNode objectNode) {
+    Optional<User> user = userRepository.findByEmail(objectNode.get("email").asText());
+
+    if (user.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+    return ResponseEntity.ok(user);
+  }
+
   @PutMapping("/users/{id}")
   public ResponseEntity updateUserById(
           @RequestHeader("username") String username,
