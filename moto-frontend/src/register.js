@@ -65,6 +65,11 @@ class Register extends Component {
                             <Form.Control type="password" name="password"/>
                         </Form.Group>
 
+                        <Form.Group controlId="email" size="lg">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" name="email"/>
+                        </Form.Group>
+
                         <Button block size="lg" type="submit">Register</Button>
                     </Form>
                 </div>
