@@ -9,7 +9,7 @@ import Alert from "./alert.js";
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.registrationAlert = React.createRef();
+        this.alert = React.createRef();
     }
 
     handleSubmit = event => {
@@ -30,22 +30,22 @@ class Login extends Component {
             })
         }).then(function (response) {
             if (response.status === 200) {
-                this.showRegistrationAlert("success", "Login successful!", "You are now logged in.");
+                this.showAlert("success", "Login successful!", "You are now logged in.");
                 localStorage.setItem("username", username);
                 this.props.updateUsername();
             } else {
-                this.showRegistrationAlert("danger", "Wrong credentials", "Username and/or password is wrong.");
+                this.showAlert("danger", "Wrong credentials", "Username and/or password is wrong.");
             }
         }.bind(this)).catch(function (error) {
-            this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+            this.showAlert("danger", "Error", "Something went wrong.");
         }.bind(this));
     }
 
-    showRegistrationAlert(variant, heading, message) {
-        this.registrationAlert.current.setVariant(variant);
-        this.registrationAlert.current.setHeading(heading);
-        this.registrationAlert.current.setMessage(message);
-        this.registrationAlert.current.setVisible(true);
+    showAlert(variant, heading, message) {
+        this.alert.current.setVariant(variant);
+        this.alert.current.setHeading(heading);
+        this.alert.current.setMessage(message);
+        this.alert.current.setVisible(true);
     }
 
     render() {
@@ -73,7 +73,7 @@ class Login extends Component {
 
                 </div>
 
-                <Alert ref={this.registrationAlert} />
+                <Alert ref={this.alert} />
 
             </>
         );

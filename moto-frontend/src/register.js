@@ -10,7 +10,7 @@ class Register extends Component {
 
     constructor(props) {
         super(props);
-        this.registrationAlert = React.createRef();
+        this.alert = React.createRef();
     }
 
     handleSubmit = event => {
@@ -31,22 +31,22 @@ class Register extends Component {
             })
         }).then(function (response) {
             if (response.status === 200) {
-                this.showRegistrationAlert("success", "User registered!", "You can now log in using your credentials.");
+                this.showAlert("success", "User registered!", "You can now log in using your credentials.");
             } else if (response.status === 422) {
-                this.showRegistrationAlert("danger", "User already exists", "Please choose a different name.");
+                this.showAlert("danger", "User already exists", "Please choose a different name.");
             } else {
-                this.showRegistrationAlert("danger", "User not registered!", "Something went wrong.");
+                this.showAlert("danger", "User not registered!", "Something went wrong.");
             }
         }.bind(this)).catch(function (error) {
-            this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+            this.showAlert("danger", "Error", "Something went wrong.");
         }.bind(this));
     }
 
-    showRegistrationAlert(variant, heading, message) {
-        this.registrationAlert.current.setVariant(variant);
-        this.registrationAlert.current.setHeading(heading);
-        this.registrationAlert.current.setMessage(message);
-        this.registrationAlert.current.setVisible(true);
+    showAlert(variant, heading, message) {
+        this.alert.current.setVariant(variant);
+        this.alert.current.setHeading(heading);
+        this.alert.current.setMessage(message);
+        this.alert.current.setVisible(true);
     }
 
     render() {
@@ -69,7 +69,7 @@ class Register extends Component {
                     </Form>
                 </div>
 
-                <Alert ref={this.registrationAlert}/>
+                <Alert ref={this.alert}/>
             </>
         );
     }

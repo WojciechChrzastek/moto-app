@@ -36,7 +36,7 @@ class Alert extends Component {
         if (this.state.visible) {
             return (
                 <>
-                    <div className="RegistrationAlert">
+                    <div className="alert">
                         <Alert variant={this.state.variant} onClose={() => this.setState({visible: false})} dismissible>
                             <Alert.Heading>{this.state.heading}</Alert.Heading>
                             <p>
