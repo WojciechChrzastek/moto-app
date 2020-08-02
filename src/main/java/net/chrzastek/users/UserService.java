@@ -29,14 +29,15 @@ public class UserService {
 
   @PostMapping("/users")
   public ResponseEntity addUser(@RequestBody User user) {
-    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
-
-    if (userFromDb.isPresent()) {
+    if (user.getUsername().equals("") || user.getPassword().equals("") || user.getEmail().equals("")) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (userRepository.findByUsername(user.getUsername()).isPresent()
+            || userRepository.findByEmail(user.getEmail()).isPresent()) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    } else {
+      User savedUser = userRepository.save(user);
+      return ResponseEntity.ok(savedUser);
     }
-
-    User savedUser = userRepository.save(user);
-    return ResponseEntity.ok(savedUser);
   }
 
   @GetMapping("/users")

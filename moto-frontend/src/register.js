@@ -34,7 +34,9 @@ class Register extends Component {
             if (response.status === 200) {
                 this.showAlert("success", "User registered!", "You can now log in using your credentials.");
             } else if (response.status === 422) {
-                this.showAlert("danger", "User already exists", "Please choose a different name.");
+                this.showAlert("danger", "User/email already exists", "Please choose a different name/email.");
+            } else if (response.status === 406) {
+                this.showAlert("danger", "Insufficient data.", "Please fill in all fields.");
             } else {
                 this.showAlert("danger", "User not registered!", "Something went wrong.");
             }
