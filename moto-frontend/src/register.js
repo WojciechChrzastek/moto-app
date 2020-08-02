@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 import './register.css';
 
-import Alert from './alert.js';
+import Alert from './registerAndLoginAlert.js';
 
 class Register extends Component {
 

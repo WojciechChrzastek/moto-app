@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert'
 
 import './alert.css'
 
-class Alert extends Component {
+class registerAndLoginAlert extends Component {
     constructor(props) {
         super(props);
 
@@ -51,4 +51,4 @@ class Alert extends Component {
     }
 }
 
-export default Alert;
+export default registerAndLoginAlert;
