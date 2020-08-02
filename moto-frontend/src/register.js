@@ -69,7 +69,7 @@ class Register extends Component {
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" name="email" placeholder="Enter email"/>
                             <Form.Text className="text-muted">
-                                Provide valid email address.
+                                Please provide a valid email address.
                             </Form.Text>
                         </Form.Group>
 
