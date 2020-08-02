@@ -55,17 +55,17 @@ class Register extends Component {
                 <div className="Register">
                     <h1 className="RegisterHeader">Register</h1>
                     <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="username" size="lg">
+                        <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control  name="username" placeholder="Enter username"/>
+                            <Form.Control name="username" placeholder="Enter username"/>
                         </Form.Group>
 
-                        <Form.Group controlId="password" size="lg">
+                        <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" name="password" placeholder="Enter password" />
                         </Form.Group>
 
-                        <Form.Group controlId="email" size="lg">
+                        <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" name="email" placeholder="Enter email"/>
                             <Form.Text className="text-muted">
