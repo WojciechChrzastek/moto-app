@@ -15,10 +15,10 @@ class Register extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.registerUser(event.target.username.value, event.target.password.value);
+        this.registerUser(event.target.username.value, event.target.password.value, event.target.email.value);
     }
 
-    registerUser(username, password) {
+    registerUser(username, password, email) {
         fetch('http://localhost:8080/users', {
             method: 'POST',
             headers: {
@@ -28,6 +28,7 @@ class Register extends Component {
             body: JSON.stringify({
                 username: username,
                 password: password,
+                email: email,
             })
         }).then(function (response) {
             if (response.status === 200) {
