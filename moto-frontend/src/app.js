@@ -7,10 +7,10 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import './App.css';
+import './app.css';
 
 import Login from './login.js'
-import Register from './Registration.js'
+import Register from './register.js'
 import About from './about.js'
 
 class App extends Component {

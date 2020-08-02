@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-import './registration.css';
+import './register.css';
 
-import RegistrationAlert from './registrationAlert.js';
+import Alert from './alert.js';
 
-class Registration extends Component {
+class Register extends Component {
 
     constructor(props) {
         super(props);
@@ -69,10 +69,10 @@ class Registration extends Component {
                     </Form>
                 </div>
 
-                <RegistrationAlert ref={this.registrationAlert}/>
+                <Alert ref={this.registrationAlert}/>
             </>
         );
     }
 }
 
-export default Registration;
+export default Register;

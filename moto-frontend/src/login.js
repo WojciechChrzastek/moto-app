@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 import './login.css';
 
-import RegistrationAlert from "./registrationAlert.js";
+import Alert from "./alert.js";
 
 class Login extends Component {
     constructor(props) {
@@ -73,7 +73,7 @@ class Login extends Component {
 
                 </div>
 
-                <RegistrationAlert ref={this.registrationAlert} />
+                <Alert ref={this.registrationAlert} />
 
             </>
         );
