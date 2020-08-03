@@ -60,12 +60,12 @@ class Register extends Component {
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control name="username" placeholder="Enter username"/>
+                            <Form.Control autoFocus name="username" placeholder="Enter username"/>
                         </Form.Group>
 
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" placeholder="Enter password" />
+                            <Form.Control type="password" name="password" placeholder="Enter password"/>
                         </Form.Group>
 
                         <Form.Group controlId="email">
