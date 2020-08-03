@@ -1,0 +1,14 @@
+.AddCar {
+    padding: 50px;
+}
+
+.AddCar Form {
+    margin: 0 auto;
+    max-width: 320px;
+}
+
+.AddCarHeader {
+    margin: 0 auto;
+    max-width: 320px;
+    padding: 0 0 20px;
+}
