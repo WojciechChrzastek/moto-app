@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -51,18 +51,18 @@ class Login extends Component {
     render() {
         return (
             <>
-                <div className="Login" >
+                <div className="Login">
                     <h1 className="LoginHeader">Login</h1>
-                    <Form onSubmit={this.handleSubmit} >
+                    <Form onSubmit={this.handleSubmit}>
 
                         <Form.Group controlId="username" size="lg">
-                            <Form.Label> Username </Form.Label>
-                            <Form.Control autoFocus name="username" />
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control autoFocus name="username" placeholder="Enter username"/>
                         </Form.Group>
 
-                        <Form.Group controlId="password" size="lg" >
-                            <Form.Label > Password </Form.Label>
-                            <Form.Control type="password" name="password" />
+                        <Form.Group controlId="password" size="lg">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name="password" placeholder="Enter password"/>
                         </Form.Group>
 
                         <Button block size="lg" type="submit">
@@ -73,7 +73,7 @@ class Login extends Component {
 
                 </div>
 
-                <Alert ref={this.alert} />
+                <Alert ref={this.alert}/>
 
             </>
         );
