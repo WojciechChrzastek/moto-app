@@ -23,6 +23,7 @@ public class Main {
         registry.addMapping("/users").allowedOrigins(LOCALHOST);
         registry.addMapping("/login").allowedOrigins(LOCALHOST);
         registry.addMapping("/cars").allowedOrigins(LOCALHOST);
+        registry.addMapping("/carsnouser").allowedOrigins(LOCALHOST);
       }
     };
   }
