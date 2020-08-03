@@ -30,7 +30,6 @@ public class Car {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @NonNull
   @ManyToOne
   private User user;
 
@@ -42,5 +41,12 @@ public class Car {
 
   @NonNull
   private int manufactureyear;
+
+  public Car(User user, String brandname, String modelname, int manufactureyear) {
+    this.user = user;
+    this.brandname = brandname;
+    this.modelname = modelname;
+    this.manufactureyear = manufactureyear;
+  }
 
 }
