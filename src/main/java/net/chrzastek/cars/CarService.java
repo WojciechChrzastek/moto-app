@@ -52,6 +52,23 @@ public class CarService {
     return ResponseEntity.ok(savedCar);
   }
 
+  @PostMapping("/carsnouser")
+  public ResponseEntity addCar(
+          @RequestBody ObjectNode objectNode) {
+    if (objectNode.get("brandname").asText().equals("") ||
+            objectNode.get("modelname").asText().equals("") ||
+            objectNode.get("manufactureyear").asInt() == 0) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else {
+      Car car = new Car(
+              objectNode.get("brandname").asText(),
+              objectNode.get("modelname").asText(),
+              objectNode.get("manufactureyear").asInt());
+      carRepository.save(car);
+      return ResponseEntity.ok(car);
+    }
+  }
+
   @GetMapping("/cars")
   public ResponseEntity getCars() throws JsonProcessingException {
     List<Car> cars = carRepository.findAll();
