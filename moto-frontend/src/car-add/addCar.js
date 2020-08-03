@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 import '../styles/addCar.css';
 
-import Alert from './registerAndLoginAlert.js';
+import Alert from '../alert/registerAndLoginAlert.js';
 
 class AddCar extends Component {
 
