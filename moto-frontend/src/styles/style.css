@@ -1,0 +1,19 @@
+.AddCar, .Login, .Register {
+    padding: 50px;
+}
+
+.AddCar Form, .Login Form, .Register Form {
+    margin: 0 auto;
+    max-width: 320px;
+}
+
+.AddCarHeader, .LoginHeader, .RegisterHeader {
+    margin: 0 auto;
+    max-width: 320px;
+    padding: 0 0 20px;
+}
+
+.alert {
+    max-width: 330px;
+    margin: 0 auto;
+}

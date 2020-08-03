@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Alert from 'react-bootstrap/Alert'
 
-import '../styles/alert.css'
+import '../styles/style.css'
 
 class registerAndLoginAlert extends Component {
     constructor(props) {
