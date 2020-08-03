@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
 
-import './app.css';
+import './styles/app.css';
 
-import Login from './login.js'
-import Register from './register.js'
-import About from './about.js'
-import AddCar from './addCar.js'
+import Login from './user-login/login.js'
+import Register from './user-register/register.js'
+import About from './about/about.js'
+import AddCar from './car-add/addCar.js'
 
 class App extends Component {
     state = {username: "", isAuthenticated: false};
