@@ -8,6 +8,7 @@ import Login from './user-login/login.js'
 import Register from './user-register/register.js'
 import About from './about/about.js'
 import AddCar from './car-add/addCar.js'
+import ShowAllCars from './car-show-all/showAllCars.js'
 
 class App extends Component {
     state = {username: "", isAuthenticated: false};
@@ -34,6 +35,8 @@ class App extends Component {
                     <span> </span>
                     <Link to="/about">About</Link>
                     <span> </span>
+                    <Link to="/showAllCars">Show all cars</Link>
+                    <span> </span>
                     <span>Logged in user: {localStorage.getItem("username")}</span>
                     <span> </span>
                     {localStorage.getItem("username") !== null ?
@@ -52,6 +55,7 @@ class App extends Component {
                     <Route path="/register" component={Register}/>
                     <Route path="/addCar" component={AddCar}/>
                     <PrivateRoute path="/about" component={About}/>
+                    <Route path="/showAllCars" component={ShowAllCars}/>
                 </div>
             </Router>
         );
