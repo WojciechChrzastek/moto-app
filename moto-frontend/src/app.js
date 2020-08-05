@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
 
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
 
@@ -30,31 +31,23 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div className="container">
-                    <Nav className="topMenu justify-content-center" activeKey="/home">
-                        <Nav.Item>
-                            <Nav.Link href="/register">Register</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/addCar">AddCar</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/showAllCars">Show all cars</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/about">About</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/login">Login</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
 
-                    <div className="d-flex flex-row-reverse">
-                        <span>Logged in user: {localStorage.getItem("username")}</span>
-                        <span>&nbsp;</span>
-                        <span>{localStorage.getItem("username") !== null ?
+                <Navbar bg="dark" variant="dark" className="topMenu">
+                    <Navbar.Brand className="m-auto" href="/">MotoApp</Navbar.Brand>
+                    <Nav className="m-auto">
+                        <Nav.Link href="/register">Register</Nav.Link>
+                        <Nav.Link href="/login">Login</Nav.Link>
+                        <Nav.Link href="/addCar">AddCar</Nav.Link>
+                        <Nav.Link href="/showAllCars">Show all cars</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                    </Nav>
+                </Navbar>
+
+                <div className="container d-flex flex-row-reverse">
+                    <span>{localStorage.getItem("username") !== null ?
                             <Link to="/login" onClick={this.logout}>Log out</Link> : null}</span>
-                    </div>
+                    <span>&nbsp;</span>
+                    <span>Logged in user: {localStorage.getItem("username")}</span>
                 </div>
 
                 <div className="container">
@@ -70,7 +63,6 @@ class App extends Component {
             </Router>
         );
     }
-
 }
 
 function PrivateRoute({component: Component, ...rest}) {
