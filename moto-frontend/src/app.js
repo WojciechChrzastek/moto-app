@@ -35,16 +35,14 @@ class App extends Component {
                     <span> </span>
                     <Link to="/about">About</Link>
                     <span> </span>
+                    <Link to="/addCar">AddCar</Link>
+                    <span> </span>
                     <Link to="/showAllCars">Show all cars</Link>
                     <span> </span>
                     <span>Logged in user: {localStorage.getItem("username")}</span>
                     <span> </span>
                     {localStorage.getItem("username") !== null ?
                         <span><Link to="/login" onClick={this.logout}>Log out</Link></span> : null}
-                </div>
-
-                <div className="addCar">
-                    <Link to="/addCar">AddCar</Link>
                 </div>
 
                 <div className="container">
