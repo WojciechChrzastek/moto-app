@@ -31,7 +31,6 @@ class App extends Component {
     render() {
         return (
             <Router>
-
                 <Navbar bg="dark" variant="dark" className="topMenu">
                     <Navbar.Brand className="m-auto" href="/">MotoApp</Navbar.Brand>
                     <Nav className="m-auto">
@@ -45,9 +44,9 @@ class App extends Component {
 
                 <div className="container d-flex flex-row-reverse">
                     <span>{localStorage.getItem("username") !== null ?
-                            <Link to="/login" onClick={this.logout}>Log out</Link> : null}</span>
+                        <Link to="/login" onClick={this.logout}>Log out</Link> : null}</span>
                     <span>&nbsp;</span>
-                    <span>Logged in user: {localStorage.getItem("username")}</span>
+                    <span>Logged user: {localStorage.getItem("username")}</span>
                 </div>
 
                 <div className="container">
