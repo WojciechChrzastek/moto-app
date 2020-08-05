@@ -19,7 +19,7 @@ class ShowAllCars extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <Table striped bordered hover>
                     <thead>
                     <tr>
