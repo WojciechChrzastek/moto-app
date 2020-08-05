@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import Nav from 'react-bootstrap/Nav'
+
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
 
 import './styles/app.css';
@@ -28,21 +30,31 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div className="topMenu">
-                    <Link to="/login">Login</Link>
-                    <span> </span>
-                    <Link to="/register">Register</Link>
-                    <span> </span>
-                    <Link to="/about">About</Link>
-                    <span> </span>
-                    <Link to="/addCar">AddCar</Link>
-                    <span> </span>
-                    <Link to="/showAllCars">Show all cars</Link>
-                    <span> </span>
-                    <span>Logged in user: {localStorage.getItem("username")}</span>
-                    <span> </span>
-                    {localStorage.getItem("username") !== null ?
-                        <span><Link to="/login" onClick={this.logout}>Log out</Link></span> : null}
+                <div className="container">
+                    <Nav className="topMenu justify-content-center" activeKey="/home">
+                        <Nav.Item>
+                            <Nav.Link href="/register">Register</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/addCar">AddCar</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/showAllCars">Show all cars</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/about">About</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/login">Login</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+
+                    <div className="d-flex flex-row-reverse">
+                        <span>Logged in user: {localStorage.getItem("username")}</span>
+                        <span>&nbsp;</span>
+                        <span>{localStorage.getItem("username") !== null ?
+                            <Link to="/login" onClick={this.logout}>Log out</Link> : null}</span>
+                    </div>
                 </div>
 
                 <div className="container">
