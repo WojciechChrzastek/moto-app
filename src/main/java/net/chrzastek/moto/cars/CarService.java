@@ -23,15 +23,16 @@ import java.util.Optional;
 
 @RestController
 public class CarService {
+  final CarRepository carRepository;
+  final UserRepository userRepository;
+  final ObjectMapper objectMapper;
 
   @Autowired
-  CarRepository carRepository;
-
-  @Autowired
-  UserRepository userRepository;
-
-  @Autowired
-  ObjectMapper objectMapper;
+  public CarService(CarRepository carRepository, UserRepository userRepository, ObjectMapper objectMapper) {
+    this.carRepository = carRepository;
+    this.userRepository = userRepository;
+    this.objectMapper = objectMapper;
+  }
 
   @PostMapping("/cars")
   public ResponseEntity addCar(

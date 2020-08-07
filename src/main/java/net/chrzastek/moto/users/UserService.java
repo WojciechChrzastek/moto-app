@@ -20,12 +20,14 @@ import java.util.Optional;
 
 @RestController
 public class UserService {
+  final UserRepository userRepository;
+  final ObjectMapper objectMapper;
 
   @Autowired
-  UserRepository userRepository;
-
-  @Autowired
-  ObjectMapper objectMapper;
+  public UserService(UserRepository userRepository, ObjectMapper objectMapper) {
+    this.userRepository = userRepository;
+    this.objectMapper = objectMapper;
+  }
 
   @PostMapping("/users")
   public ResponseEntity addUser(@RequestBody User user) {
