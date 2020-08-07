@@ -1,4 +1,4 @@
-package net.chrzastek.users;
+package net.chrzastek.moto.cars;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,33 +7,46 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.chrzastek.moto.users.User;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name = "cars")
+@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
-@NoArgsConstructor
 @ToString
-public class User {
+public class Car {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @NonNull
-  private String username;
+  @ManyToOne
+  private User user;
 
   @NonNull
-  private String password;
+  private String brandname;
 
   @NonNull
-  private String email;
+  private String modelname;
+
+  @NonNull
+  private int manufactureyear;
+
+  public Car(User user, String brandname, String modelname, int manufactureyear) {
+    this.user = user;
+    this.brandname = brandname;
+    this.modelname = modelname;
+    this.manufactureyear = manufactureyear;
+  }
+
 }

@@ -1,4 +1,4 @@
-package net.chrzastek.users;
+package net.chrzastek.moto.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
