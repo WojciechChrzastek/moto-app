@@ -5,8 +5,6 @@ import Navbar from 'react-bootstrap/Navbar'
 
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
 
-import './styles/app.css';
-
 import Login from './user-login/login.js'
 import Register from './user-register/register.js'
 import About from './about/about.js'
