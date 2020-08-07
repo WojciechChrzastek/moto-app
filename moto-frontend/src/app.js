@@ -37,9 +37,9 @@ class App extends Component {
                     <Nav className="m-auto">
                         <Nav.Link href="/register">Register</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/addCar">AddCar</Nav.Link>
-                        <Nav.Link href="/deleteCar">DeleteCar</Nav.Link>
-                        <Nav.Link href="/showAllCars">Show all cars</Nav.Link>
+                        <Nav.Link href="/add-car">AddCar</Nav.Link>
+                        <Nav.Link href="/delete-car">DeleteCar</Nav.Link>
+                        <Nav.Link href="/show-all-cars">Show all cars</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
                     </Nav>
                 </Navbar>
@@ -57,10 +57,10 @@ class App extends Component {
                         render={props => <Login updateUsername={this.updateUsername}/>}
                     />
                     <Route path="/register" component={Register}/>
-                    <Route path="/addCar" component={AddCar}/>
-                    <Route path="/deleteCar" component={DeleteCar}/>
+                    <Route path="/add-car" component={AddCar}/>
+                    <Route path="/delete-car" component={DeleteCar}/>
                     <PrivateRoute path="/about" component={About}/>
-                    <Route path="/showAllCars" component={ShowAllCars}/>
+                    <Route path="/show-all-cars" component={ShowAllCars}/>
                 </div>
             </Router>
         );
