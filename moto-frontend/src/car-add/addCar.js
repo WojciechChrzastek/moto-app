@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
 import '../styles/style.css';
 
 import Alert from '../alert/registerAndLoginAlert.js';
@@ -32,7 +32,7 @@ class AddCar extends Component {
             })
         }).then(function (response) {
             if (response.status === 200) {
-                this.showAlert("success", "Car added!", "One day you will be able to see it in \"my cars\" section.");
+                this.showAlert("success", "Car added!", "You can see it in \"Show all cars\" section.");
             } else if (response.status === 406) {
                 this.showAlert("danger", "Insufficient data.", "Please fill in all fields.");
             } else {
@@ -63,7 +63,7 @@ class AddCar extends Component {
 
                         <Form.Group controlId="modelname">
                             <Form.Label>Model</Form.Label>
-                            <Form.Control name="modelname" placeholder="Enter model name" />
+                            <Form.Control name="modelname" placeholder="Enter model name"/>
                         </Form.Group>
 
                         <Form.Group controlId="manufactureyear">
