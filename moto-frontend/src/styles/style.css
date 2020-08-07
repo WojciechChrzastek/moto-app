@@ -1,13 +1,13 @@
-.AddCar, .Login, .Register {
+.AddCar, .Login, .Register, .DeleteCar {
     padding: 50px;
 }
 
-.AddCar Form, .Login Form, .Register Form {
+.AddCar Form, .Login Form, .Register Form, .DeleteCar Form {
     margin: 0 auto;
     max-width: 320px;
 }
 
-.AddCarHeader, .LoginHeader, .RegisterHeader {
+.AddCarHeader, .LoginHeader, .RegisterHeader, .DeleteCarHeader {
     margin: 0 auto;
     max-width: 320px;
     padding: 0 0 20px;
