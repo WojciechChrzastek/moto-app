@@ -11,6 +11,7 @@ import Login from './user-login/login.js'
 import Register from './user-register/register.js'
 import About from './about/about.js'
 import AddCar from './car-add/addCar.js'
+import DeleteCar from './car-delete/deleteCar.js'
 import ShowAllCars from './car-show-all/showAllCars.js'
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
                         <Nav.Link href="/register">Register</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
                         <Nav.Link href="/addCar">AddCar</Nav.Link>
+                        <Nav.Link href="/deleteCar">DeleteCar</Nav.Link>
                         <Nav.Link href="/showAllCars">Show all cars</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
                     </Nav>
@@ -56,6 +58,7 @@ class App extends Component {
                     />
                     <Route path="/register" component={Register}/>
                     <Route path="/addCar" component={AddCar}/>
+                    <Route path="/deleteCar" component={DeleteCar}/>
                     <PrivateRoute path="/about" component={About}/>
                     <Route path="/showAllCars" component={ShowAllCars}/>
                 </div>
