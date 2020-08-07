@@ -5,12 +5,12 @@ import Navbar from 'react-bootstrap/Navbar'
 
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
 
-import Login from './user-login/login.js'
-import Register from './user-register/register.js'
-import About from './about/about.js'
-import AddCar from './car-add/addCar.js'
-import DeleteCar from './car-delete/deleteCar.js'
-import ShowAllCars from './car-show-all/showAllCars.js'
+import Login from './user/login.js'
+import Register from './user/register.js'
+import About from './user/about.js'
+import Add from './car/add.js'
+import Delete from './car/delete.js'
+import ShowAll from './car/showAll.js'
 
 class App extends Component {
     state = {username: "", isAuthenticated: false};
@@ -55,10 +55,10 @@ class App extends Component {
                         render={props => <Login updateUsername={this.updateUsername}/>}
                     />
                     <Route path="/register" component={Register}/>
-                    <Route path="/add-car" component={AddCar}/>
-                    <Route path="/delete-car" component={DeleteCar}/>
+                    <Route path="/add-car" component={Add}/>
+                    <Route path="/delete-car" component={Delete}/>
                     <PrivateRoute path="/about" component={About}/>
-                    <Route path="/show-all-cars" component={ShowAllCars}/>
+                    <Route path="/show-all-cars" component={ShowAll}/>
                 </div>
             </Router>
         );

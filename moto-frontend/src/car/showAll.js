@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import '../styles/style.css';
 import Table from "react-bootstrap/Table";
 
-class ShowAllCars extends Component {
+class ShowAll extends Component {
 
     state = {
         data: [],
@@ -47,4 +47,4 @@ class ShowAllCars extends Component {
     }
 }
 
-export default ShowAllCars;
+export default ShowAll;

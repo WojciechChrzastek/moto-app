@@ -6,7 +6,7 @@ import '../styles/style.css';
 
 import Alert from '../alert/registerAndLoginAlert.js';
 
-class DeleteCar extends Component {
+class Delete extends Component {
 
     constructor(props) {
         super(props);
@@ -66,4 +66,4 @@ class DeleteCar extends Component {
     }
 }
 
-export default DeleteCar;
+export default Delete;
