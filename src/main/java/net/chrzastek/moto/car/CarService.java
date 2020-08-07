@@ -1,10 +1,10 @@
-package net.chrzastek.moto.cars;
+package net.chrzastek.moto.car;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import net.chrzastek.moto.users.UserRepository;
-import net.chrzastek.moto.users.User;
+import net.chrzastek.moto.user.UserRepository;
+import net.chrzastek.moto.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

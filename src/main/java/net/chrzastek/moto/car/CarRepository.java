@@ -1,4 +1,4 @@
-package net.chrzastek.moto.cars;
+package net.chrzastek.moto.car;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

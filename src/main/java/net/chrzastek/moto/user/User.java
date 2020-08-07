@@ -1,4 +1,4 @@
-package net.chrzastek.moto.users;
+package net.chrzastek.moto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
