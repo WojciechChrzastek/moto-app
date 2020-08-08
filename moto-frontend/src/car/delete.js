@@ -19,19 +19,19 @@ class Delete extends Component {
     }
 
     deleteCar(id) {
-        console.log(id);
         fetch('http://localhost:8080/cars', {
             method: 'DELETE',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(id),
+            body: id
         }).then(function (response) {
             if (response.status === 200) {
                 this.showAlert("success", "Car deleted!", "It should not appear in the \"all cars\" section.");
             } else if (response.status === 422) {
                 this.showAlert("danger", "Car not deleted!", "There is no car of given ID.");
+            } else if (response.status === 406) {
+                this.showAlert("danger", "Insufficient data.", "Please fill in all fields.");
             }
         }.bind(this)).catch(function (error) {
             this.showAlert("danger", "Error", "Something went wrong.");
