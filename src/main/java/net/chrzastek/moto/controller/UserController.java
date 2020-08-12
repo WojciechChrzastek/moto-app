@@ -1,8 +1,10 @@
-package net.chrzastek.moto.user;
+package net.chrzastek.moto.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.chrzastek.moto.user.User;
+import net.chrzastek.moto.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +21,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class UserService {
+public class UserController {
   final UserRepository userRepository;
   final ObjectMapper objectMapper;
 
   @Autowired
-  public UserService(UserRepository userRepository, ObjectMapper objectMapper) {
+  public UserController(UserRepository userRepository, ObjectMapper objectMapper) {
     this.userRepository = userRepository;
     this.objectMapper = objectMapper;
   }

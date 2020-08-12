@@ -1,8 +1,11 @@
-package net.chrzastek.moto.car;
+package net.chrzastek.moto.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.extern.java.Log;
+import net.chrzastek.moto.car.Car;
+import net.chrzastek.moto.car.CarRepository;
 import net.chrzastek.moto.user.UserRepository;
 import net.chrzastek.moto.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +19,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class CarService {
+public class CarController {
   final CarRepository carRepository;
   final UserRepository userRepository;
   final ObjectMapper objectMapper;
 
   @Autowired
-  public CarService(CarRepository carRepository, UserRepository userRepository, ObjectMapper objectMapper) {
+  public CarController(CarRepository carRepository, UserRepository userRepository, ObjectMapper objectMapper) {
     this.carRepository = carRepository;
     this.userRepository = userRepository;
     this.objectMapper = objectMapper;
@@ -70,15 +75,54 @@ public class CarService {
       return ResponseEntity.ok(car);
     }
   }
+//  @CrossOrigin("/cars/{id}")
+//  @GetMapping("/cars/{id}")
+//  public ResponseEntity<Car> getCarById2(@PathVariable("id") long id) {
+//    Optional<Car> car = carRepository.findById(id);
+//
+//    if (car.isPresent()) {
+//      return new ResponseEntity<>(car.get(), HttpStatus.OK);
+//    } else {
+//      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+//  }
 
   @GetMapping("/cars")
-  public ResponseEntity getCars() throws JsonProcessingException {
-    List<Car> cars = carRepository.findAll();
-    return ResponseEntity.ok(objectMapper.writeValueAsString(cars));
+  public ResponseEntity getCars(@RequestParam(required = false, value = "brandname") String brandname) throws JsonProcessingException {
+//    List<Car> cars = carRepository.findAll();
+//    return ResponseEntity.ok(objectMapper.writeValueAsString(cars));
+    try {
+      List<Car> cars = new ArrayList<Car>();
+
+      if (brandname == null)
+        carRepository.findAll().forEach(cars::add);
+      else
+        carRepository.findByBrandname(brandname).forEach(cars::add);
+
+      if (cars.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+
+      return new ResponseEntity<>(cars, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
   }
 
-  @GetMapping("/cars/{id}")
-  public ResponseEntity getCarById(@PathVariable long id) {
+//  @GetMapping("/cars/{id}")
+//  public ResponseEntity getCarById(@PathVariable long id) {
+//    Optional<Car> car = carRepository.findById(id);
+//
+//    if (car.isEmpty()) {
+//      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+//    }
+//    return ResponseEntity.ok(car);
+//  }
+
+  @CrossOrigin("/show-car-by-id")
+  @GetMapping("/show-car-by-id")
+  public ResponseEntity getCarById(@RequestHeader Long id) {
     Optional<Car> car = carRepository.findById(id);
 
     if (car.isEmpty()) {
@@ -108,6 +152,27 @@ public class CarService {
     return ResponseEntity.ok(c);
   }
 
+//  @PutMapping("/cars")
+//  public ResponseEntity updateCarByIdBody(
+//          @RequestHeader("username") String username,
+//          @RequestBody ObjectNode objectNode,
+//          @PathVariable long id) {
+//    Optional<Car> car = carRepository.findById(id);
+//
+//    if (car.isEmpty()) {
+//      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+//    }
+//
+//    Car c = carRepository.getOne(id);
+//
+//    c.setBrandname(objectNode.get("brandname").asText());
+//    c.setModelname(objectNode.get("modelname").asText());
+//    c.setManufactureyear(objectNode.get("manufactureyear").asInt());
+//
+//    carRepository.save(c);
+//    return ResponseEntity.ok(c);
+//  }
+
   @DeleteMapping("/cars/{id}")
   public ResponseEntity deleteCarById(@PathVariable long id) {
 
@@ -125,17 +190,27 @@ public class CarService {
 
   @CrossOrigin("/cars")
   @DeleteMapping("/cars")
-  public ResponseEntity deleteCarByIdBody(@RequestBody Long id) {
+  public ResponseEntity deleteCarByIdBody(@RequestBody(required = false) Long id) {
 
-    Optional<Car> car = carRepository.findById(id);
+    try {
+      if (id == 0) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+      }
 
-    if (car.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+      Optional<Car> car = carRepository.findById(id);
+
+      if (car.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+      }
+
+      Car c = carRepository.getOne(id);
+
+      carRepository.delete(c);
+      return ResponseEntity.ok(c);
+    }
+    catch (NullPointerException e) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     }
 
-    Car c = carRepository.getOne(id);
-
-    carRepository.delete(c);
-    return ResponseEntity.ok(c);
   }
 }
