@@ -75,6 +75,8 @@ public class CarController {
       return ResponseEntity.ok(car);
     }
   }
+
+
 //  @CrossOrigin("/cars/{id}")
 //  @GetMapping("/cars/{id}")
 //  public ResponseEntity<Car> getCarById2(@PathVariable("id") long id) {
@@ -110,15 +112,15 @@ public class CarController {
 
   }
 
-//  @GetMapping("/cars/{id}")
-//  public ResponseEntity getCarById(@PathVariable long id) {
-//    Optional<Car> car = carRepository.findById(id);
-//
-//    if (car.isEmpty()) {
-//      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-//    }
-//    return ResponseEntity.ok(car);
-//  }
+  @GetMapping("/cars/{id}")
+  public ResponseEntity getCarById(@PathVariable long id) {
+    Optional<Car> car = carRepository.findById(id);
+
+    if (car.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+    return ResponseEntity.ok(car);
+  }
 
   @CrossOrigin("/show-car-by-id")
   @GetMapping("/show-car-by-id")
@@ -152,26 +154,26 @@ public class CarController {
     return ResponseEntity.ok(c);
   }
 
-//  @PutMapping("/cars")
-//  public ResponseEntity updateCarByIdBody(
-//          @RequestHeader("username") String username,
-//          @RequestBody ObjectNode objectNode,
-//          @PathVariable long id) {
-//    Optional<Car> car = carRepository.findById(id);
-//
-//    if (car.isEmpty()) {
-//      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-//    }
-//
-//    Car c = carRepository.getOne(id);
-//
-//    c.setBrandname(objectNode.get("brandname").asText());
-//    c.setModelname(objectNode.get("modelname").asText());
-//    c.setManufactureyear(objectNode.get("manufactureyear").asInt());
-//
-//    carRepository.save(c);
-//    return ResponseEntity.ok(c);
-//  }
+  @PutMapping("/cars")
+  public ResponseEntity updateCarByIdBody(
+          @RequestHeader("username") String username,
+          @RequestBody ObjectNode objectNode,
+          @PathVariable long id) {
+    Optional<Car> car = carRepository.findById(id);
+
+    if (car.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+
+    Car c = carRepository.getOne(id);
+
+    c.setBrandname(objectNode.get("brandname").asText());
+    c.setModelname(objectNode.get("modelname").asText());
+    c.setManufactureyear(objectNode.get("manufactureyear").asInt());
+
+    carRepository.save(c);
+    return ResponseEntity.ok(c);
+  }
 
   @DeleteMapping("/cars/{id}")
   public ResponseEntity deleteCarById(@PathVariable long id) {
