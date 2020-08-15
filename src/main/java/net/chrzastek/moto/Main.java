@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class Main {
 
-  public static final String LOCALHOST = "http://localhost:3000";
+  public static final String MOTO_FRONT1 = "http://localhost:3000";
+  public static final String MOTO_FRONT2 = "http://localhost:4000";
 
   public static void main(String[] args) {
     SpringApplication.run(Main.class, args);
@@ -20,10 +21,10 @@ public class Main {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/users").allowedOrigins(LOCALHOST);
-        registry.addMapping("/login").allowedOrigins(LOCALHOST);
-        registry.addMapping("/cars").allowedOrigins(LOCALHOST);
-        registry.addMapping("/carsnouser").allowedOrigins(LOCALHOST);
+        registry.addMapping("/users").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
+        registry.addMapping("/login").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
+        registry.addMapping("/cars").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
+        registry.addMapping("/carsnouser").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
       }
     };
   }
