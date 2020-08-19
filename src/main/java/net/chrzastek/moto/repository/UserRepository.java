@@ -1,5 +1,6 @@
-package net.chrzastek.moto.user;
+package net.chrzastek.moto.repository;
 
+import net.chrzastek.moto.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

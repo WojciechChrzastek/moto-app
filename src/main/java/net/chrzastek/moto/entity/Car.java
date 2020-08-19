@@ -1,4 +1,4 @@
-package net.chrzastek.moto.car;
+package net.chrzastek.moto.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import net.chrzastek.moto.user.User;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

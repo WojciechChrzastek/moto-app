@@ -1,5 +1,6 @@
-package net.chrzastek.moto.car;
+package net.chrzastek.moto.repository;
 
+import net.chrzastek.moto.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
