@@ -25,6 +25,7 @@ public class Main {
         registry.addMapping("/login").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
         registry.addMapping("/cars").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
         registry.addMapping("/carsnouser").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
+        registry.addMapping("/cars/{id}").allowedOrigins(MOTO_FRONT1, MOTO_FRONT2);
       }
     };
   }
