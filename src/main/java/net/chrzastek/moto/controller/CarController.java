@@ -77,7 +77,6 @@ public class CarController {
     }
   }
 
-
 //  @CrossOrigin("/cars/{id}")
 //  @GetMapping("/cars/{id}")
 //  public ResponseEntity<Car> getCarById2(@PathVariable("id") long id) {
@@ -156,7 +155,6 @@ public class CarController {
 
   @PutMapping("/cars")
   public ResponseEntity updateCarByIdBody(
-          @RequestHeader("username") String username,
           @RequestBody ObjectNode objectNode,
           @PathVariable long id) {
     Optional<Car> car = carRepository.findById(id);
