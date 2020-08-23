@@ -3,6 +3,7 @@ package net.chrzastek.moto.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.chrzastek.moto.AllowedCors;
 import net.chrzastek.moto.entity.Car;
 import net.chrzastek.moto.repository.CarRepository;
 import net.chrzastek.moto.repository.UserRepository;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = {AllowedCors.FRONT1, AllowedCors.FRONT2})
 @RestController
 public class CarController {
   final CarRepository carRepository;
@@ -121,7 +123,6 @@ public class CarController {
     return ResponseEntity.ok(car);
   }
 
-  @CrossOrigin("/show-car-by-id")
   @GetMapping("/show-car-by-id")
   public ResponseEntity getCarById(@RequestHeader Long id) {
     Optional<Car> car = carRepository.findById(id);
@@ -189,7 +190,6 @@ public class CarController {
     return ResponseEntity.ok(c);
   }
 
-  @CrossOrigin("/cars")
   @DeleteMapping("/cars")
   public ResponseEntity deleteCarByIdBody(@RequestBody(required = false) Long id) {
 
