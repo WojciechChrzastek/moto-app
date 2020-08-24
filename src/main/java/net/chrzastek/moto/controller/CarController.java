@@ -1,6 +1,5 @@
 package net.chrzastek.moto.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.chrzastek.moto.AllowedCors;
@@ -90,16 +89,14 @@ public class CarController {
 //  }
 
   @GetMapping("/cars")
-  public ResponseEntity getCars(@RequestParam(required = false, value = "brandname") String brandname) throws JsonProcessingException {
-//    List<Car> cars = carRepository.findAll();
-//    return ResponseEntity.ok(objectMapper.writeValueAsString(cars));
+  public ResponseEntity<List<Car>> getCars(@RequestParam(required = false) String brandname) {
     try {
       List<Car> cars = new ArrayList<Car>();
 
       if (brandname == null)
         carRepository.findAll().forEach(cars::add);
       else
-        carRepository.findByBrandname(brandname).forEach(cars::add);
+        carRepository.findByBrandnameContaining(brandname).forEach(cars::add);
 
       if (cars.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -134,7 +131,7 @@ public class CarController {
 
   @PutMapping("/cars/{id}")
   public ResponseEntity updateCarById(
-          @RequestHeader("username") String username,
+//          @RequestHeader("username") String username,
           @RequestBody ObjectNode objectNode,
           @PathVariable long id) {
     Optional<Car> car = carRepository.findById(id);
