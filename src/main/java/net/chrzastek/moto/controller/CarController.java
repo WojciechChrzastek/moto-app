@@ -68,16 +68,7 @@ public class CarController {
 //    User userToSave = userRepository.getOne(user.orElseThrow().getId());
 //    car.setUser(userToSave);
 
-    if (car.getBrandname().equals("") || car.getModelname().equals("") || car.getManufactureyear() == 0) {
-      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    } else if (
-            car.getManufactureyear() < 1901 || car.getManufactureyear() > 2155
-    ) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-    } else {
-      carRepository.save(car);
-      return ResponseEntity.ok(car);
-    }
+    return validateResponse(car);
   }
 
   @GetMapping("/cars")
@@ -121,25 +112,19 @@ public class CarController {
   }
 
   @PutMapping("/cars/{id}")
-  public ResponseEntity updateCarById(
+  public ResponseEntity<Car> updateCarById(
 //          @RequestHeader("username") String username,
-          @RequestBody ObjectNode objectNode,
+          @RequestBody Car car,
           @PathVariable long id) {
-    Optional<Car> car = carRepository.findById(id);
+    Optional<Car> carr = carRepository.findById(id);
 
-    if (car.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    if (carr.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-
-    Car c = carRepository.getOne(id);
-
-    c.setBrandname(objectNode.get("brandname").asText());
-    c.setModelname(objectNode.get("modelname").asText());
-    c.setManufactureyear(objectNode.get("manufactureyear").asInt());
-
-    carRepository.save(c);
-    return ResponseEntity.ok(c);
+    return validateResponse(car);
   }
+
+
 
   @PutMapping("/cars")
   public ResponseEntity updateCarByIdBody(
@@ -167,7 +152,7 @@ public class CarController {
     Optional<Car> car = carRepository.findById(id);
 
     if (car.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     Car c = carRepository.getOne(id);
@@ -199,4 +184,18 @@ public class CarController {
     }
 
   }
+
+  private ResponseEntity<Car> validateResponse(@RequestBody Car car) {
+    if (car.getBrandname().equals("") || car.getModelname().equals("") || car.getManufactureyear() == 0) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (
+            car.getManufactureyear() < 1901 || car.getManufactureyear() > 2155
+    ) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    } else {
+      carRepository.save(car);
+      return ResponseEntity.ok(car);
+    }
+  }
+
 }
