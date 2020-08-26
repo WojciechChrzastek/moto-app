@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.chrzastek.moto.AllowedCors;
 import net.chrzastek.moto.entity.Car;
+import net.chrzastek.moto.entity.User;
 import net.chrzastek.moto.repository.CarRepository;
 import net.chrzastek.moto.repository.UserRepository;
-import net.chrzastek.moto.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,38 +60,23 @@ public class CarController {
   }
 
   @PostMapping("/carsnouser")
-  public ResponseEntity addCar(
-          @RequestBody ObjectNode objectNode) {
-    if (objectNode.get("brandname").asText().equals("") ||
-            objectNode.get("modelname").asText().equals("") ||
-            objectNode.get("manufactureyear").asInt() == 0) {
+  public ResponseEntity<Car> addCar(@RequestBody Car car) {
+    if (car.getBrandname().equals("") || car.getModelname().equals("") || car.getManufactureyear() == 0) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (
+            car.getManufactureyear() < 1901 || car.getManufactureyear() > 2155
+    ) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     } else {
-      Car car = new Car(
-              objectNode.get("brandname").asText(),
-              objectNode.get("modelname").asText(),
-              objectNode.get("manufactureyear").asInt());
       carRepository.save(car);
       return ResponseEntity.ok(car);
     }
   }
 
-//  @CrossOrigin("/cars/{id}")
-//  @GetMapping("/cars/{id}")
-//  public ResponseEntity<Car> getCarById2(@PathVariable("id") long id) {
-//    Optional<Car> car = carRepository.findById(id);
-//
-//    if (car.isPresent()) {
-//      return new ResponseEntity<>(car.get(), HttpStatus.OK);
-//    } else {
-//      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-//  }
-
   @GetMapping("/cars")
   public ResponseEntity<List<Car>> getCars(@RequestParam(required = false) String brandname) {
     try {
-      List<Car> cars = new ArrayList<Car>();
+      List<Car> cars = new ArrayList<>();
 
       if (brandname == null)
         carRepository.findAll().forEach(cars::add);
@@ -106,7 +91,6 @@ public class CarController {
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
   }
 
   @GetMapping("/cars/{id}")
@@ -203,8 +187,7 @@ public class CarController {
 
       carRepository.delete(c);
       return ResponseEntity.ok(c);
-    }
-    catch (NullPointerException e) {
+    } catch (NullPointerException e) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     }
 
