@@ -72,23 +72,31 @@ public class CarController {
   }
 
   @GetMapping("/cars")
-  public ResponseEntity<List<Car>> getCars(@RequestParam(required = false) String brandname) {
+  public ResponseEntity<List<Car>> getCars(
+          @RequestParam(required = false) String brandname,
+          @RequestParam(required = false) String modelname
+  ) {
     try {
       List<Car> cars = new ArrayList<>();
 
-      if (brandname == null)
+      if (brandname == null && modelname == null) {
         cars.addAll(carRepository.findAll());
-      else
+      } else if (brandname == null) {
+        cars.addAll(carRepository.findByModelnameContaining(modelname));
+      } else {
         cars.addAll(carRepository.findByBrandnameContaining(brandname));
+      }
 
       if (cars.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
 
       return new ResponseEntity<>(cars, HttpStatus.OK);
-    } catch (Exception e) {
+    } catch (
+            Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
   }
 
   @GetMapping("/cars/{id}")
@@ -123,7 +131,6 @@ public class CarController {
     }
     return validateResponse(car);
   }
-
 
 
   @PutMapping("/cars")
