@@ -79,9 +79,9 @@ public class CarController {
       List<Car> cars = new ArrayList<>();
 
       if (brandname == null)
-        carRepository.findAll().forEach(cars::add);
+        cars.addAll(carRepository.findAll());
       else
-        carRepository.findByBrandnameContaining(brandname).forEach(cars::add);
+        cars.addAll(carRepository.findByBrandnameContaining(brandname));
 
       if (cars.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
