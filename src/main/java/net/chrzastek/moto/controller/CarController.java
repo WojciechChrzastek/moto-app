@@ -60,7 +60,14 @@ public class CarController {
   }
 
   @PostMapping("/carsnouser")
-  public ResponseEntity<Car> addCar(@RequestBody Car car) {
+  public ResponseEntity<Car> addCar(
+//          @RequestHeader(required = false) String username,
+          @RequestBody Car car) {
+
+//    Optional<User> user = userRepository.findByUsername(username);
+//    User userToSave = userRepository.getOne(user.orElseThrow().getId());
+//    car.setUser(userToSave);
+
     if (car.getBrandname().equals("") || car.getModelname().equals("") || car.getManufactureyear() == 0) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     } else if (
