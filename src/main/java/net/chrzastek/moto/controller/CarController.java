@@ -59,14 +59,18 @@ public class CarController {
 //    return ResponseEntity.ok(savedCar);
 //  }
 
-  @PostMapping("/carsnouser")
+  @PostMapping("/cars")
   public ResponseEntity<Car> addCar(
 //          @RequestHeader(required = false) String username,
           @RequestBody Car car) {
 
-//    Optional<User> user = userRepository.findByUsername(username);
-//    User userToSave = userRepository.getOne(user.orElseThrow().getId());
-//    car.setUser(userToSave);
+//    List<User> users = userRepository.findByUsername(username);
+//
+//    if (users.isEmpty()) {
+//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//    } else {
+//      car.setUser(users.get(0));
+//    }
 
     return validateResponse(car);
   }
