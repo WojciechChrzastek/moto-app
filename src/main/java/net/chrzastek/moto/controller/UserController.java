@@ -141,7 +141,7 @@ public class UserController {
     Optional<User> user = userRepository.findById(id);
 
     if (user.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     User u = userRepository.getOne(id);
