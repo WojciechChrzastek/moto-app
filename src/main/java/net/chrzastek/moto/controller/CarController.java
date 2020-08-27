@@ -39,25 +39,25 @@ public class CarController {
     this.objectMapper = objectMapper;
   }
 
-  @PostMapping("/cars")
-  public ResponseEntity addCar(
-          @RequestHeader("username") String username,
-          @RequestBody ObjectNode objectNode) {
-    Optional<User> userFromDb = userRepository.findByUsername(username);
-
-    if (userFromDb.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
-    Car car = new Car(
-            userFromDb.get(),
-            objectNode.get("brandname").asText(),
-            objectNode.get("modelname").asText(),
-            objectNode.get("manufactureyear").asInt());
-    Car savedCar = carRepository.save(car);
-
-    return ResponseEntity.ok(savedCar);
-  }
+//  @PostMapping("/cars")
+//  public ResponseEntity addCar(
+//          @RequestHeader("username") String username,
+//          @RequestBody ObjectNode objectNode) {
+//    Optional<User> userFromDb = userRepository.findByUsername(username);
+//
+//    if (userFromDb.isEmpty()) {
+//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//    }
+//
+//    Car car = new Car(
+//            userFromDb.get(),
+//            objectNode.get("brandname").asText(),
+//            objectNode.get("modelname").asText(),
+//            objectNode.get("manufactureyear").asInt());
+//    Car savedCar = carRepository.save(car);
+//
+//    return ResponseEntity.ok(savedCar);
+//  }
 
   @PostMapping("/carsnouser")
   public ResponseEntity<Car> addCar(
