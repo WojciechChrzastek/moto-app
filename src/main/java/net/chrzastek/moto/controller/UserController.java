@@ -2,6 +2,7 @@ package net.chrzastek.moto.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.chrzastek.moto.AllowedCors;
+import net.chrzastek.moto.entity.Car;
 import net.chrzastek.moto.entity.User;
 import net.chrzastek.moto.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class UserController {
   }
 
   @GetMapping("/users/{id}")
-  public ResponseEntity getUserById(@PathVariable long id) {
+  public ResponseEntity<Optional<User>> getUserById(@PathVariable long id) {
     Optional<User> optionalUser = userRepository.findById(id);
     if (optionalUser.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -95,7 +96,7 @@ public class UserController {
 //  }
 
   @PutMapping("/users/{id}")
-  public ResponseEntity updateUserById(
+  public ResponseEntity<User> updateUserById(
 //          @RequestHeader("username") String username,
           @RequestBody User user,
           @PathVariable long id) {
@@ -115,7 +116,7 @@ public class UserController {
   }
 
   @DeleteMapping("/users/{id}")
-  public ResponseEntity deleteUserById(@PathVariable long id) {
+  public ResponseEntity<User> deleteUserById(@PathVariable long id) {
 
     Optional<User> optionalUser = userRepository.findById(id);
 
