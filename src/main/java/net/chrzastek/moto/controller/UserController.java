@@ -2,7 +2,6 @@ package net.chrzastek.moto.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.chrzastek.moto.AllowedCors;
-import net.chrzastek.moto.entity.Car;
 import net.chrzastek.moto.entity.User;
 import net.chrzastek.moto.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
