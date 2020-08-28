@@ -101,7 +101,7 @@ public class CarController {
   }
 
   @GetMapping("/cars/{id}")
-  public ResponseEntity getCarById(@PathVariable long id) {
+  public ResponseEntity<Optional<Car>> getCarById(@PathVariable long id) {
     Optional<Car> car = carRepository.findById(id);
 
     if (car.isEmpty()) {
@@ -155,7 +155,7 @@ public class CarController {
 //  }
 
   @DeleteMapping("/cars/{id}")
-  public ResponseEntity deleteCarById(@PathVariable long id) {
+  public ResponseEntity<Car> deleteCarById(@PathVariable long id) {
 
     Optional<Car> optionalCar = carRepository.findById(id);
 
@@ -166,7 +166,7 @@ public class CarController {
 //    Car c = carRepository.getOne(id);
 
     carRepository.delete(optionalCar.get());
-    return ResponseEntity.ok(optionalCar);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @DeleteMapping("/cars")
