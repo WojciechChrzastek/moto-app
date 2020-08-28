@@ -71,7 +71,6 @@ public class CarController {
             Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
   }
 
   @GetMapping("/cars/{id}")

@@ -44,10 +44,8 @@ public class UserController {
           @RequestParam(required = false) String email,
           @RequestParam(required = false) String password
   ) {
-
     try {
       List<User> users = new ArrayList<>();
-
       if (username == null && email == null && password == null) {
         users.addAll(userRepository.findAll());
       } else if (username == null && email == null) {
@@ -57,11 +55,9 @@ public class UserController {
       } else {
         users.addAll(userRepository.findByUsernameContaining(username));
       }
-
       if (users.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
-
       return new ResponseEntity<>(users, HttpStatus.OK);
     } catch (
             Exception e) {
