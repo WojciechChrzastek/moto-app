@@ -2,7 +2,6 @@ package net.chrzastek.moto.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.chrzastek.moto.AllowedCors;
-import net.chrzastek.moto.entity.Car;
 import net.chrzastek.moto.entity.User;
 import net.chrzastek.moto.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,22 +35,7 @@ public class UserController {
 
   @PostMapping("/users")
   public ResponseEntity<User> addUser(@RequestBody User user) {
-    Optional<User> userOptional = userRepository.findById(user.getId());
-
-    if (user.getUsername().equals("") || user.getPassword().equals("") || user.getEmail().equals("")) {
-      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    } else if (userOptional.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-    } else if (!userRepository.findByUsername(user.getUsername()).isEmpty()
-            || !userRepository.findByEmail(user.getEmail()).isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-
-    } else {
-      userRepository.save(user);
-      return ResponseEntity.ok(user);
-    }
-
+    return validateResponse(user);
   }
 
   @GetMapping("/users")
@@ -168,6 +152,9 @@ public class UserController {
   private ResponseEntity<User> validateResponse(@RequestBody User user) {
     if (user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (!userRepository.findByUsername(user.getUsername()).isEmpty()
+            || !userRepository.findByEmail(user.getEmail()).isEmpty()) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
     } else {
       userRepository.save(user);
       return ResponseEntity.ok(user);
