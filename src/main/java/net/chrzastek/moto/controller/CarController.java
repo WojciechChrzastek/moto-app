@@ -1,6 +1,5 @@
 package net.chrzastek.moto.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.chrzastek.moto.AllowedCors;
 import net.chrzastek.moto.entity.Car;
 import net.chrzastek.moto.repository.CarRepository;
@@ -27,13 +26,11 @@ import java.util.Optional;
 public class CarController {
   final CarRepository carRepository;
   final UserRepository userRepository;
-  final ObjectMapper objectMapper;
 
   @Autowired
-  public CarController(CarRepository carRepository, UserRepository userRepository, ObjectMapper objectMapper) {
+  public CarController(CarRepository carRepository, UserRepository userRepository) {
     this.carRepository = carRepository;
     this.userRepository = userRepository;
-    this.objectMapper = objectMapper;
   }
 
   @PostMapping("/cars")
