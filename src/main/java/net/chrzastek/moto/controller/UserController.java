@@ -97,6 +97,9 @@ public class UserController {
 
   @DeleteMapping("/users")
   public ResponseEntity<User> deleteAllUsers() {
+    if (userRepository.findAll().isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     userRepository.deleteAll();
     return new ResponseEntity<>(HttpStatus.OK);
   }

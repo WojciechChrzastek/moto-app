@@ -106,6 +106,9 @@ public class CarController {
 
   @DeleteMapping("/cars")
   public ResponseEntity<Car> deleteAllCars() {
+    if (userRepository.findAll().isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     carRepository.deleteAll();
     return new ResponseEntity<>(HttpStatus.OK);
   }
