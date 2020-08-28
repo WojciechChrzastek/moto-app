@@ -59,7 +59,6 @@ public class CarController {
   ) {
     try {
       List<Car> cars = new ArrayList<>();
-
       if (brandname == null && modelname == null) {
         cars.addAll(carRepository.findAll());
       } else if (brandname == null) {
@@ -67,11 +66,9 @@ public class CarController {
       } else {
         cars.addAll(carRepository.findByBrandnameContaining(brandname));
       }
-
       if (cars.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
-
       return new ResponseEntity<>(cars, HttpStatus.OK);
     } catch (
             Exception e) {
@@ -83,9 +80,8 @@ public class CarController {
   @GetMapping("/cars/{id}")
   public ResponseEntity<Optional<Car>> getCarById(@PathVariable long id) {
     Optional<Car> optionalCar = carRepository.findById(id);
-
     if (optionalCar.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     return ResponseEntity.ok(optionalCar);
   }
@@ -96,7 +92,6 @@ public class CarController {
           @RequestBody Car car,
           @PathVariable long id) {
     Optional<Car> optionalCar = carRepository.findById(id);
-
     if (optionalCar.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
@@ -105,9 +100,7 @@ public class CarController {
 
   @DeleteMapping("/cars/{id}")
   public ResponseEntity<Car> deleteCarById(@PathVariable long id) {
-
     Optional<Car> optionalCar = carRepository.findById(id);
-
     if (optionalCar.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
