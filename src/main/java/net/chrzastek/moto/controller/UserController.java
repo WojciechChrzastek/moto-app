@@ -82,7 +82,7 @@ public class UserController {
     if (optionalUser.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    return validateResponse(user);
+    return validateUpdateResponse(user);
   }
 
   @DeleteMapping("/users/{id}")
@@ -124,6 +124,18 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     } else if (!userRepository.findByUsername(user.getUsername()).isEmpty()
             || !userRepository.findByEmail(user.getEmail()).isEmpty()) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    } else {
+      userRepository.save(user);
+      return ResponseEntity.ok(user);
+    }
+  }
+
+  private ResponseEntity<User> validateUpdateResponse(@RequestBody User user) {
+    if (user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("")) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (!userRepository.findByUsername(user.getUsername()).isEmpty()
+            && !userRepository.findByEmail(user.getEmail()).isEmpty()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     } else {
       userRepository.save(user);
