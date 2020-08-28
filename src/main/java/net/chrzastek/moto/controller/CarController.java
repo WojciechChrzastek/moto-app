@@ -125,9 +125,9 @@ public class CarController {
 //          @RequestHeader("username") String username,
           @RequestBody Car car,
           @PathVariable long id) {
-    Optional<Car> carr = carRepository.findById(id);
+    Optional<Car> optionalCar = carRepository.findById(id);
 
-    if (carr.isEmpty()) {
+    if (optionalCar.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     return validateResponse(car);
@@ -157,16 +157,16 @@ public class CarController {
   @DeleteMapping("/cars/{id}")
   public ResponseEntity deleteCarById(@PathVariable long id) {
 
-    Optional<Car> car = carRepository.findById(id);
+    Optional<Car> optionalCar = carRepository.findById(id);
 
-    if (car.isEmpty()) {
+    if (optionalCar.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 //    Car c = carRepository.getOne(id);
 
-    carRepository.delete(car.get());
-    return ResponseEntity.ok(car);
+    carRepository.delete(optionalCar.get());
+    return ResponseEntity.ok(optionalCar);
   }
 
   @DeleteMapping("/cars")
