@@ -104,19 +104,19 @@ public class UserController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
-//  @PostMapping("/login")
-//  public ResponseEntity login(@RequestBody User user) {
-//    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
-//
-//    if (userFromDb.isEmpty() || hasWrongPassword(userFromDb, user)) {
-//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//    }
-//    return ResponseEntity.ok().build();
-//
-//  }
+  @PostMapping("/login")
+  public ResponseEntity<User> login(@RequestBody User user) {
+    List<User> userFromDb = userRepository.findByUsername(user.getUsername());
+    if (user.getUsername().equals("") || user.getPassword().equals("")) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (userFromDb.isEmpty() || hasWrongPassword(userFromDb.get(0), user)) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+    return ResponseEntity.ok().build();
+  }
 
-  private boolean hasWrongPassword(Optional<User> userFromDb, User user) {
-    return !userFromDb.get().getPassword().equals(user.getPassword());
+  private boolean hasWrongPassword(User userFromDb, User user) {
+    return !userFromDb.getPassword().equals(user.getPassword());
   }
 
   private ResponseEntity<User> validateResponse(@RequestBody User user) {
