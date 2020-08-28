@@ -1,10 +1,8 @@
 package net.chrzastek.moto.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.chrzastek.moto.AllowedCors;
 import net.chrzastek.moto.entity.Car;
-import net.chrzastek.moto.entity.User;
 import net.chrzastek.moto.repository.CarRepository;
 import net.chrzastek.moto.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -206,6 +203,12 @@ public class CarController {
             car.getManufactureyear() < 1901 || car.getManufactureyear() > 2155
     ) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    } else if (
+            !carRepository.findByBrandname(car.getBrandname()).isEmpty()
+                    && !carRepository.findByModelname(car.getModelname()).isEmpty()
+                    && !carRepository.findByManufactureyear(car.getManufactureyear()).isEmpty()
+    ) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
     } else {
       carRepository.save(car);
       return ResponseEntity.ok(car);
