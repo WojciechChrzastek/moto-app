@@ -95,6 +95,12 @@ public class UserController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  @DeleteMapping("/users")
+  public ResponseEntity<User> deleteAllUsers() {
+    userRepository.deleteAll();
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
 //  @PostMapping("/login")
 //  public ResponseEntity login(@RequestBody User user) {
 //    Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
