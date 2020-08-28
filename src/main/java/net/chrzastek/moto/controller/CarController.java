@@ -102,12 +102,12 @@ public class CarController {
 
   @GetMapping("/cars/{id}")
   public ResponseEntity<Optional<Car>> getCarById(@PathVariable long id) {
-    Optional<Car> car = carRepository.findById(id);
+    Optional<Car> optionalCar = carRepository.findById(id);
 
-    if (car.isEmpty()) {
+    if (optionalCar.isEmpty()) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
-    return ResponseEntity.ok(car);
+    return ResponseEntity.ok(optionalCar);
   }
 
 //  @GetMapping("/show-car-by-id")
