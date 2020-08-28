@@ -67,12 +67,11 @@ public class UserController {
 
   @GetMapping("/users/{id}")
   public ResponseEntity getUserById(@PathVariable long id) {
-    Optional<User> user = userRepository.findById(id);
-
-    if (user.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    Optional<User> optionalUser = userRepository.findById(id);
+    if (optionalUser.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    return ResponseEntity.ok(user);
+    return ResponseEntity.ok(optionalUser);
   }
 
 //  @GetMapping("/users/name")
@@ -100,9 +99,9 @@ public class UserController {
 //          @RequestHeader("username") String username,
           @RequestBody User user,
           @PathVariable long id) {
-    Optional<User> userr = userRepository.findById(id);
+    Optional<User> optionalUser = userRepository.findById(id);
 
-    if (userr.isEmpty()) {
+    if (optionalUser.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
@@ -118,9 +117,9 @@ public class UserController {
   @DeleteMapping("/users/{id}")
   public ResponseEntity deleteUserById(@PathVariable long id) {
 
-    Optional<User> user = userRepository.findById(id);
+    Optional<User> optionalUser = userRepository.findById(id);
 
-    if (user.isEmpty()) {
+    if (optionalUser.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
