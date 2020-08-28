@@ -56,7 +56,7 @@ public class UserController {
         users.addAll(userRepository.findByUsernameContaining(username));
       }
       if (users.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
       return new ResponseEntity<>(users, HttpStatus.OK);
     } catch (

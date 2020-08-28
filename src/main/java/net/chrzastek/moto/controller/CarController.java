@@ -64,7 +64,7 @@ public class CarController {
         cars.addAll(carRepository.findByBrandnameContaining(brandname));
       }
       if (cars.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
       return new ResponseEntity<>(cars, HttpStatus.OK);
     } catch (
