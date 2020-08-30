@@ -53,7 +53,8 @@ class Register extends Component {
     }
 
     render() {
-        return (
+
+            return (
             <>
                 <div className="Register">
                     <h1 className="RegisterHeader">Register</h1>

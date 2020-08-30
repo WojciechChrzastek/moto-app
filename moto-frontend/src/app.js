@@ -11,6 +11,7 @@ import About from './user/about.js'
 import Add from './car/add.js'
 import Delete from './car/delete.js'
 import ShowAll from './car/showAll.js'
+import ShowByBrandname from './car/showByBrandname.js'
 
 class App extends Component {
     state = {username: "", isAuthenticated: false};
@@ -38,6 +39,7 @@ class App extends Component {
                         <Nav.Link href="/add-car">AddCar</Nav.Link>
                         <Nav.Link href="/delete-car">DeleteCar</Nav.Link>
                         <Nav.Link href="/show-all-cars">Show all cars</Nav.Link>
+                        <Nav.Link href="/show-by-brandname">Show by brandname</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
                     </Nav>
                 </Navbar>
@@ -59,6 +61,7 @@ class App extends Component {
                     <Route path="/delete-car" component={Delete}/>
                     <PrivateRoute path="/about" component={About}/>
                     <Route path="/show-all-cars" component={ShowAll}/>
+                    <Route path="/show-by-brandname" component={ShowByBrandname}/>
                 </div>
             </Router>
         );

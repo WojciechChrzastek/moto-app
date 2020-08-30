@@ -57,12 +57,14 @@ class Login extends Component {
 
                         <Form.Group controlId="username" size="lg">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control autoFocus name="username" placeholder="Enter username"/>
+                            <Form.Control autoFocus name="username"
+                             placeholder="Enter username"/>
                         </Form.Group>
 
                         <Form.Group controlId="password" size="lg">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" placeholder="Enter password"/>
+                            <Form.Control type="password" name="password"
+                             placeholder="Enter password"/>
                         </Form.Group>
 
                         <Button block size="lg" type="submit">
