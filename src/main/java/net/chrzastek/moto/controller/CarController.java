@@ -113,19 +113,27 @@ public class CarController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  private ResponseEntity<Car> validateUnique(Car car) {
+    List<Car> existingCars = carRepository.findByBrandnameAndModelnameAndManufactureyear(
+            car.getBrandname(),
+            car.getModelname(),
+            car.getManufactureyear()
+    );
+    if (existingCars.isEmpty() || existingCars.get(0) == car) {
+      return null;
+    }
+    return ResponseEntity.status(HttpStatus.CONFLICT).build();
+  }
+
   private ResponseEntity<Car> validateResponse(@RequestBody Car car) {
     if (car.getBrandname().equals("") || car.getModelname().equals("") || car.getManufactureyear() == 0) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    } else if (
-            car.getManufactureyear() < 1901 || car.getManufactureyear() > 2155
-    ) {
+    } else if (car.getManufactureyear() < 1901 || car.getManufactureyear() > 2155) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-    } else if (
-            !carRepository.findByBrandname(car.getBrandname()).isEmpty()
-                    && !carRepository.findByModelname(car.getModelname()).isEmpty()
-                    && !carRepository.findByManufactureyear(car.getManufactureyear()).isEmpty()
-    ) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+    ResponseEntity<Car> responseEntity = validateUnique(car);
+    if (responseEntity != null) {
+      return responseEntity;
     } else {
       carRepository.save(car);
       return ResponseEntity.ok(car);
