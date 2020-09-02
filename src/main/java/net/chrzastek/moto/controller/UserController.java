@@ -118,6 +118,8 @@ public class UserController {
   private ResponseEntity<User> validateCreateResponse(@RequestBody User newUser) {
     if (newUser.getUsername().equals("") || newUser.getEmail().equals("") || newUser.getPassword().equals("")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (!newUser.getEmail().matches("[^@]+@[^\\.]+\\..+")) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     } else if (!userRepository.findByUsername(newUser.getUsername()).isEmpty()
             || !userRepository.findByEmail(newUser.getEmail()).isEmpty()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -132,6 +134,8 @@ public class UserController {
     Optional<User> optionalUser = userRepository.findById(id);
     if (inputtedUser.getUsername().equals("") || inputtedUser.getEmail().equals("") || inputtedUser.getPassword().equals("")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (!inputtedUser.getEmail().matches("[^@]+@[^\\.]+\\..+")) {
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     } else if (optionalUser.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     } else if (
