@@ -35,7 +35,7 @@ public class UserController {
 
   @PostMapping("/users")
   public ResponseEntity<User> addUser(@RequestBody User newUser) {
-    return validateResponse(newUser);
+    return validateCreateResponse(newUser);
   }
 
   @GetMapping("/users")
@@ -121,7 +121,7 @@ public class UserController {
     return !userFromDb.getPassword().equals(user.getPassword());
   }
 
-  private ResponseEntity<User> validateResponse(@RequestBody User newUser) {
+  private ResponseEntity<User> validateCreateResponse(@RequestBody User newUser) {
     if (newUser.getUsername().equals("") || newUser.getEmail().equals("") || newUser.getPassword().equals("")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     } else if (!userRepository.findByUsername(newUser.getUsername()).isEmpty()
