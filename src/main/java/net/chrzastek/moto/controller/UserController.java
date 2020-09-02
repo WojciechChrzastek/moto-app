@@ -34,8 +34,8 @@ public class UserController {
   }
 
   @PostMapping("/users")
-  public ResponseEntity<User> addUser(@RequestBody User user) {
-    return validateResponse(user);
+  public ResponseEntity<User> addUser(@RequestBody User newUser) {
+    return validateResponse(newUser);
   }
 
   @GetMapping("/users")
@@ -121,15 +121,15 @@ public class UserController {
     return !userFromDb.getPassword().equals(user.getPassword());
   }
 
-  private ResponseEntity<User> validateResponse(@RequestBody User user) {
-    if (user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("")) {
+  private ResponseEntity<User> validateResponse(@RequestBody User newUser) {
+    if (newUser.getUsername().equals("") || newUser.getEmail().equals("") || newUser.getPassword().equals("")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    } else if (!userRepository.findByUsername(user.getUsername()).isEmpty()
-            || !userRepository.findByEmail(user.getEmail()).isEmpty()) {
+    } else if (!userRepository.findByUsername(newUser.getUsername()).isEmpty()
+            || !userRepository.findByEmail(newUser.getEmail()).isEmpty()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     } else {
-      userRepository.save(user);
-      return ResponseEntity.ok(user);
+      userRepository.save(newUser);
+      return ResponseEntity.ok(newUser);
     }
   }
 
