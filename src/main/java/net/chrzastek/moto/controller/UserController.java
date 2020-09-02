@@ -76,13 +76,15 @@ public class UserController {
 
   @PutMapping("/users/{id}")
   public ResponseEntity<User> updateUserById(
-          @RequestBody User user,
+          @RequestBody User inputtedUser,
           @PathVariable long id) {
     Optional<User> optionalUser = userRepository.findById(id);
-    if (optionalUser.isEmpty()) {
+    if (inputtedUser.getUsername().equals("") || inputtedUser.getEmail().equals("") || inputtedUser.getPassword().equals("")) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (optionalUser.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
-    return validateUpdateResponse(user);
+    } else
+      return validateUpdateResponse(inputtedUser, id);
   }
 
   @DeleteMapping("/users/{id}")
@@ -131,15 +133,21 @@ public class UserController {
     }
   }
 
-  private ResponseEntity<User> validateUpdateResponse(@RequestBody User user) {
-    if (user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("")) {
-      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    } else if (!userRepository.findByUsername(user.getUsername()).isEmpty()
-            && !userRepository.findByEmail(user.getEmail()).isEmpty()) {
+  private ResponseEntity<User> validateUpdateResponse(User inputtedUser, long id) {
+    User existingUser = userRepository.findExistingUserById(id);
+    if (
+            (
+                    !(userRepository.findByUsername(inputtedUser.getUsername()).isEmpty())
+                            && (!inputtedUser.getUsername().equals(existingUser.getUsername()))
+            ) || (
+                    !(userRepository.findByEmail(inputtedUser.getEmail()).isEmpty())
+                            && (!inputtedUser.getEmail().equals(existingUser.getEmail()))
+            )
+    )
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
-    } else {
-      userRepository.save(user);
-      return ResponseEntity.ok(user);
+    else {
+      userRepository.save(inputtedUser);
+      return ResponseEntity.ok(inputtedUser);
     }
   }
 
