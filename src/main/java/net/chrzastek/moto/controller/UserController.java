@@ -78,13 +78,7 @@ public class UserController {
   public ResponseEntity<User> updateUserById(
           @RequestBody User inputtedUser,
           @PathVariable long id) {
-    Optional<User> optionalUser = userRepository.findById(id);
-    if (inputtedUser.getUsername().equals("") || inputtedUser.getEmail().equals("") || inputtedUser.getPassword().equals("")) {
-      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    } else if (optionalUser.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    } else
-      return validateUpdateResponse(inputtedUser, id);
+    return validateUpdateResponse(inputtedUser, id);
   }
 
   @DeleteMapping("/users/{id}")
@@ -135,7 +129,12 @@ public class UserController {
 
   private ResponseEntity<User> validateUpdateResponse(User inputtedUser, long id) {
     User existingUser = userRepository.findExistingUserById(id);
-    if (
+    Optional<User> optionalUser = userRepository.findById(id);
+    if (inputtedUser.getUsername().equals("") || inputtedUser.getEmail().equals("") || inputtedUser.getPassword().equals("")) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    } else if (optionalUser.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    } else if (
             (
                     !(userRepository.findByUsername(inputtedUser.getUsername()).isEmpty())
                             && (!inputtedUser.getUsername().equals(existingUser.getUsername()))
